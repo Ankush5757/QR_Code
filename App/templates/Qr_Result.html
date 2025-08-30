@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR-Code Result</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #174ea6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1f2a44;
+            --accent-color: #34c759;
+        }
+
+        body {
+            background: linear-gradient(rgba(26, 115, 232, 0.1), rgba(26, 115, 232, 0.3)),
+                        url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="%231a73e8" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,128C960,160,1056,224,1152,224C1248,224,1344,160,1392,128L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"%3E%3C/path%3E%3C/svg%3E') no-repeat bottom;
+            background-size: cover, 100% 200px;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary-color) !important;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .result-container {
+            background-color: var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 550px;
+            margin: 2rem auto;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .result-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .qr-image {
+            width: 300px;
+            height: 300px;
+            border: 5px solid #f9fafb;
+            border-radius: 16px;
+            margin: 2rem auto;
+            display: block;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .qr-image:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary, .btn-accent {
+            border-radius: 12px;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 115, 232, 0.5);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 5px 15px rgba(52, 199, 89, 0.4);
+        }
+
+        .btn-accent:hover {
+            background-color: #2ea44f;
+            border-color: #2ea44f;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(52, 199, 89, 0.5);
+        }
+
+        small {
+            color: #6b7280;
+            font-size: 0.9rem;
+            display: block;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        .footer {
+            background: linear-gradient(to top, #ffffff, #f8fafc);
+            color: #6b7280;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+        }
+
+        .social-icons svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary-color);
+            transition: fill 0.3s ease;
+        }
+
+        .social-icons svg:hover {
+            fill: var(--secondary-color);
+        }
+
+        @media (max-width: 576px) {
+            .result-container {
+                margin: 1.5rem;
+                padding: 2rem;
+            }
+
+            .qr-image {
+                width: 240px;
+                height: 240px;
+            }
+
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="container-fluid d-flex justify-content-center">
+                <a class="navbar-brand" href="#">Your QR Code</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container flex-grow-1 d-flex align-items-center">
+        <div class="result-container w-100">
+            <h2>{{ rest_name }}</h2>
+            <img src="{{ qr_url }}" alt="QR Code URL" class="qr-image">
+            <div>
+                <a href="{{ qr_url }}" download="{{ file_name }}" class="btn btn-primary">Download QR Code</a>
+                <button class="btn btn-accent" onclick="copyToClipboard('{{ qr_url }}')">Copy URL</button>
+            </div>
+            <small>Thank you for using our QR Code Generator</small>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 QR Code Generator. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                </a>
+                <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script>
+        function copyToClipboard(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = document.querySelector('.btn-accent');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.backgroundColor = '#2ea44f';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.backgroundColor = 'var(--accent-color)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy URL.');
+            });
+        }
+
+        // Smooth scroll to result
+        window.addEventListener('load', () => {
+            const resultContainer = document.querySelector('.result-container');
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    </script>

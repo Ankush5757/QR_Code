@@ -1,0 +1,25 @@
+{
+  "builds": [
+    {
+      "src": "qr_generator/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "qr_generator/wsgi.py"
+    }
+  ],
+  "env": {
+    "DJANGO_DEBUG": "False",
+    "DJANGO_ALLOWED_HOSTS": "App.vercel.app"
+  }
+}
